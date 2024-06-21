@@ -1,3 +1,5 @@
+// authController.js
+
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -36,10 +38,10 @@ exports.postRegister = async (req, res) => {
     const user = new User({ name, email, password: await bcrypt.hash(password, 10) });
 
     await user.save();
-    res.redirect('/views/index'); // Redireciona para a página de login após o registro
+    res.redirect('/auth/login'); // Redireciona para a página de login após o registro
 };
 
 exports.postLogout = (req, res) => {
     res.clearCookie('token');
-    res.redirect('/views/login');
+    res.redirect('/auth/login');
 };
