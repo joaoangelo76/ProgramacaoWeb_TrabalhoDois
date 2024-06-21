@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 exports.getLogin = (req, res) => {
-    res.render('index', { loggedIn: false });
+    res.render('login', { loggedIn: false });
 };
 
 exports.postLogin = async (req, res) => {
@@ -36,10 +36,10 @@ exports.postRegister = async (req, res) => {
     const user = new User({ name, email, password: await bcrypt.hash(password, 10) });
 
     await user.save();
-    res.redirect('/auth/login'); // Redireciona para a página de login após o registro
+    res.redirect('/views/index'); // Redireciona para a página de login após o registro
 };
 
 exports.postLogout = (req, res) => {
     res.clearCookie('token');
-    res.redirect('/auth/login');
+    res.redirect('/views/login');
 };

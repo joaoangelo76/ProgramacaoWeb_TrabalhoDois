@@ -34,7 +34,7 @@ const loggedIn = false; // Aqui você define se o usuário está autenticado ou 
 
 // Rota principal
 app.get('/', (req, res) => {
-    res.render('index', { loggedIn }); // Passando loggedIn para o template
+    res.render('login', { loggedIn }); // Passando loggedIn para o template
 });
 
 // Rota para atualização de perfil
