@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+// User Model
 const userSchema = new mongoose.Schema({
-    name: String,
-    email: { type: String, unique: true },
-    password: String
+    firstname: String, // First name
+    secondName: String, // Second Name
+    email: { type: String, unique: true }, // Unique Email
+    password: String // Account Password
 });
 
 userSchema.pre('save', async function (next) {
@@ -14,6 +16,7 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
+// Create a User in Mongoose Database
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
