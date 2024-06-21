@@ -54,6 +54,8 @@ fetch('modal.html')
                 updateTotal('despesas', value);
             }
 
+            updateLucro();
+
             modal.style.display = "none";
             this.reset();
         };
@@ -65,27 +67,39 @@ fetch('modal.html')
             element.innerText = newTotal.toFixed(2).replace('.', ',');
         }
 
+        function updateLucro() {
+            var entradas = parseFloat(document.getElementById('entradas').innerText.replace(',', '.'));
+            var despesas = parseFloat(document.getElementById('despesas').innerText.replace(',', '.'));
+            var lucro = entradas - despesas;
+            document.getElementById('lucro').innerText = 'Lucro: ' + lucro.toFixed(2).replace('.', ',');
+        }
+
         function addTransaction(transaction) {
             var transactionList = document.querySelector('.transaction-list');
             var emptyState = document.querySelector('.transaction-list .empty-state');
             if (emptyState) {
                 emptyState.remove();
             }
-
+        
             var transactionItem = document.createElement('div');
             transactionItem.className = 'transaction-item';
             transactionItem.innerHTML = `
-                <div class="transaction-details">
-                    <p><strong>${transaction.name}</strong></p>
-                    <p>${transaction.date} - ${transaction.category}</p>
-                    <p>${transaction.description}</p>
+                <div class="transaction-date">
+                    <p>${transaction.date}</p>
                 </div>
-                <div class="transaction-value ${transaction.type}">
-                    <p>${transaction.type === 'income' ? '+' : '-'}${transaction.value.toFixed(2).replace('.', ',')}</p>
+                <div class="transaction-content">
+                    <div class="transaction-details">
+                        <p><strong>${transaction.name}</strong></p>
+                        <p>Categoria: ${transaction.category}</p>
+                    </div>
+                    <div class="transaction-value ${transaction.type}">
+                        <p>${transaction.type === 'income' ? '+' : '-'}${transaction.value.toFixed(2).replace('.', ',')}</p>
+                    </div>
                 </div>
             `;
             transactionList.appendChild(transactionItem);
         }
+        
 
         // Filter functionality
         document.getElementById('filterIncome').onclick = function() {

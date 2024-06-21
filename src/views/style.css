@@ -199,3 +199,48 @@ body {
     font-size: 12px;
     margin-top: 5px;
 }
+.transaction-list {
+    margin-top: 20px;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-items: center;
+}
+
+.transaction-date {
+    margin-right: 20px;
+    font-size: 14px;
+    color: #888;
+}
+
+.transaction-content {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.transaction-details {
+    flex-grow: 1;
+}
+
+.transaction-value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.transaction-value.income {
+    color: green;
+}
+
+.transaction-value.expense {
+    color: red;
+}
+
