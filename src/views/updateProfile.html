@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Conta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px 40px;
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .form-container {
+            flex: 1;
+        }
+        .container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .container .name-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .container .name-container div {
+            flex: 1;
+        }
+        .container .name-container div:first-child {
+            margin-right: 10px;
+        }
+        .container input[type="text"],
+        .container input[type="email"],
+        .container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .container .password-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+        .container .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .container .checkbox-container input {
+            margin-right: 10px;
+        }
+        .container .checkbox-container label {
+            margin: 0;
+        }
+        .container .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container .link {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .container .link:hover {
+            text-decoration: underline;
+        }
+        .container button {
+            padding: 10px 20px;
+            background-color: #a3d9c9;
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .container .image-container {
+            margin-left: 20px;
+        }
+        .container .image-container img {
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Registre uma nova conta</h1>
+            <form>
+                <div class="name-container">
+                    <div>
+                        <label for="first-name">Primeiro Nome</label>
+                        <input type="text" id="first-name" name="first-name">
+                    </div>
+                    <div>
+                        <label for="last-name">Sobrenome</label>
+                        <input type="text" id="last-name" name="last-name">
+                    </div>
+                </div>
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+                
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password">
+                
+                <label for="confirm-password">Confirme sua senha</label>
+                <input type="password" id="confirm-password" name="confirm-password">
+                
+                <div class="password-hint">Use 8 ou mais caracteres de letras, números e símbolos</div>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="show-password" name="show-password" onclick="togglePasswordVisibility()">
+                    <label for="show-password">Mostrar senha</label>
+                </div>
+                
+                <div class="footer">
+                    <a href="#" class="link">Entre na sua conta</a>
+                    <button type="submit">Registrar conta</button>
+                </div>
+            </form>
+        </div>
+        <div class="image-container">
+            <img src="https://img.icons8.com/ios-filled/200/000000/news.png" alt="News Icon">
+        </div>
+    </div>
+
+    <script>
+        function togglePasswordVisibility() {
+            var password = document.getElementById("password");
+            var confirmPassword = document.getElementById("confirm-password");
+            if (password.type === "password") {
+                password.type = "text";
+                confirmPassword.type = "text";
+            } else {
+                password.type = "password";
+                confirmPassword.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Conta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px 40px;
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .container input[type="text"],
+        .container input[type="email"],
+        .container input[type="password"] {
+            width: calc(50% - 10px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .container input[type="email"],
+        .container input[type="password"] {
+            width: 100%;
+        }
+        .container .password-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+        .container .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .container .checkbox-container input {
+            margin-right: 10px;
+        }
+        .container .checkbox-container label {
+            margin: 0;
+        }
+        .container .link {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .container .link:hover {
+            text-decoration: underline;
+        }
+        .container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #a3d9c9;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .container .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .container .image-container img {
+            max-width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img src="https://img.icons8.com/ios-filled/50/000000/cash-in-hand.png" alt="Payment Icon">
+        </div>
+        <h1>Registre uma nova conta</h1>
+        <form>
+            <label for="first-name">Primeiro Nome</label>
+            <label for="last-name" style="margin-left: 10px;">Sobrenome</label>
+            <input type="text" id="first-name" name="first-name">
+            <input type="text" id="last-name" name="last-name" style="margin-left: 10px;">
+            
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+            
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password">
+            
+            <label for="confirm-password">Confirme sua senha</label>
+            <input type="password" id="confirm-password" name="confirm-password">
+            
+            <div class="password-hint">Use 8 ou mais caracteres de letras, números e símbolos</div>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="show-password" name="show-password">
+                <label for="show-password">Mostrar senha</label>
+            </div>
+            
+            <a href="#" class="link">Entre na sua conta</a>
+            <button type="submit">Registrar conta</button>
+        </form>
+    </div>
+</body>
+</html>

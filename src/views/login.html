@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .container label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .container input[type="text"],
+        .container input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .container .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .container .checkbox-container input {
+            margin-right: 5px;
+        }
+        .container .link {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .container .link:hover {
+            text-decoration: underline;
+        }
+        .container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #a3d9c9;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .container .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #999;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        .container .divider::before, .container .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        .container .divider:not(:empty)::before {
+            margin-right: .25em;
+        }
+        .container .divider:not(:empty)::after {
+            margin-left: .25em;
+        }
+        .container .register-button {
+            width: 100%;
+            padding: 10px;
+            background-color: transparent;
+            border: 2px solid #a3d9c9;
+            border-radius: 5px;
+            color: #a3d9c9;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .container .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .container .image-container img {
+            max-width: 60px;
+        }
+        .container .forgot-password {
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img src="images/money-2.png" alt="Payment Icon">
+        </div>
+        <h1>Bem vindo de volta!</h1>
+        <form>
+            <label for="username">Email ou nome do usuário</label>
+            <input type="text" id="username" name="username">
+            
+            <label for="password">Senha</label>
+            <div class="checkbox-container">
+                <input type="password" id="password" name="password">
+                <label for="show-password">
+                    <input type="checkbox" id="show-password" onclick="togglePasswordVisibility()"> Hide
+                </label>
+            </div>
+            
+            <button type="submit">Entrar</button>
+            <p>Se continuar nossos Termos de Uso e Política de Privacidade</p>
+            <a href="#" class="forgot-password">Esqueci minha senha</a>
+        </form>
+        
+        <div class="divider">Novo na nossa comunidade?</div>
+        
+        <button class="register-button" onclick="window.location.href='register.html'">Registre uma nova conta</button>
+    </div>
+
+    <script>
+        function togglePasswordVisibility() {
+            var password = document.getElementById("password");
+            if (password.type === "password") {
+                password.type = "text";
+            } else {
+                password.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>
