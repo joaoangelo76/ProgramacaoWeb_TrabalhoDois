@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     },
     secondName: {
         type: String,
-        required: true, // Alterado de allowNull para required
+        required: false, // Alterado de allowNull para required
         unique: false,
     },
     email: {

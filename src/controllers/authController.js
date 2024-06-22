@@ -46,7 +46,7 @@ exports.getRegister = (req, res) => {
     res.render('register', { errors: [] });
 };
 
-exports.postRegister = async (req, res) => {
+exports.postRegister = [
 
     // body('username').trim().notEmpty().withMessage('Username é obrigatório'),
     // body('email').isEmail().withMessage('Email inválido'),
@@ -72,7 +72,7 @@ exports.postRegister = async (req, res) => {
             const hashedPassword = await bcrypt.hash(password, 10);
     
             // Criar novo usuário
-            const user = new User({ firstName,secondName, email, password: hashedPassword });
+            const user = new User({ firstName, secondName, email, password: hashedPassword });
     
             // Salvar o usuário
             await user.save();
@@ -85,8 +85,7 @@ exports.postRegister = async (req, res) => {
             res.status(500).send('Erro ao criar usuário');
         }
     }
-   
-};
+];
 
 exports.postLogout = (req, res) => {
     res.clearCookie('token');

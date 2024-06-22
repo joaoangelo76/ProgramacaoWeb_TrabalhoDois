@@ -1,16 +1,17 @@
-//const User = require('../models/User');
+const User = require('../models/User');
 
-// exports.createUser = async (req, res) => {
-//     try {
-//         const { name, email, password } = req.body;
-//         const user = new User({ name, email, password });
-//         await user.save();
-//         res.status(201).send('User created successfully');
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).send('Server Error');
-//     }
-// };
+exports.createUser = async (req, res) => {
+    try {
+        const { firstName, secondName, email, password } = req.body;
+        const user = new User({ firstName, secondName, email, password });
+        await user.save();
+        res.redirect('/login');
+        res.status(201).send('User created successfully');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+};
 
 // exports.listUsers = async (req, res) => {
 //     try {

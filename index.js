@@ -1,5 +1,5 @@
 // index.js
-
+const dotenv = require('dotenv').config()
 const express = require('express'); // Express
 const mustacheExpress = require('mustache-express') // Mustache
 const session = require('express-session') // Express Session
@@ -12,6 +12,8 @@ const productRoutes = require('./src/routes/productRoutes'); // Product Routes
 const app = express();
 const PORT = 3000;
 
+console.log('MONGO_URI:', process.env.MONGO_URI);
+
 // Conexão com MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
@@ -21,12 +23,15 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
 app.set('views', __dirname + '/src/views');
-app.use(express.urlencoded({ extended: true }));
 
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', authRoutes);
-app.use('/', productRoutes); // Certifique-se de usar a rota correta aqui
+// app.use('/', productRoutes); // Certifique-se de usar a rota correta aqui
+
+app.get('/', (req, res) => {
+    res.redirect('/register');
+});
 
 app.use(express.static('public'));
 
@@ -55,10 +60,6 @@ app.use(session({
 // Suponha que você tenha uma lógica para verificar se o usuário está autenticado
 //const loggedIn = false; // Aqui você define se o usuário está autenticado ou não
 
-// // Rota principal
-// app.get('/', (req, res) => {
-//     res.render('login', { loggedIn }); // Passando loggedIn para o template
-// });
 
 // // Rota para atualização de perfil
 // app.get('/profile', (req, res) => {
@@ -74,6 +75,6 @@ app.use(session({
 // // Rotas de autenticação
 // app.use('/auth', authRoutes);
 
-// app.listen(PORT, () => {
-//     console.log(`Server running on http://localhost:${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
