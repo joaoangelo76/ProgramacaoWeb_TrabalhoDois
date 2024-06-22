@@ -23,6 +23,13 @@ app.set('view engine', 'html');
 app.set('views', __dirname + '/src/views');
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/', authRoutes);
+app.use('/', productRoutes); // Certifique-se de usar a rota correta aqui
+
+app.use(express.static('public'));
+
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
