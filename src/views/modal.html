@@ -1,0 +1,47 @@
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModalBtn">&times;</span>
+        <h2>Novo registro</h2>
+        <form id="transactionForm">
+            <div class="form-group">
+                <label for="name">Nome do registro</label>
+                <input type="text" id="name" class="form-control" required>
+                <span class="error">*Campo obrigatório</span>
+            </div>
+            <div class="form-group">
+                <label for="value">Valor</label>
+                <input type="number" step="0.01" id="value" class="form-control" required>
+                <span class="error">*Campo obrigatório</span>
+            </div>
+            <div class="form-group form-group-inline">
+                <label>Tipo</label>
+                <div class="form-radio">
+                    <input type="radio" id="income" name="type" value="income">
+                    <label for="income">Renda</label>
+                </div>
+                <div class="form-radio">
+                    <input type="radio" id="expense" name="type" value="expense">
+                    <label for="expense">Despesa</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="category">Categoria</label>
+                <input type="text" id="category" class="form-control" required>
+                <span class="error">*Campo obrigatório</span>
+            </div>
+            <div class="form-group">
+                <label for="date">Data</label>
+                <input type="text" id="date" class="form-control datepicker" required>
+                <span class="error">*Campo obrigatório</span>
+            </div>
+            <div class="form-group">
+                <label for="description">Adicione uma descrição aqui</label>
+                <textarea id="description" rows="4" class="form-control" required></textarea>
+                <span class="error">*Campo obrigatório</span>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-success">Adicionar</button>
+            </div>
+        </form>
+    </div>
+</div>
