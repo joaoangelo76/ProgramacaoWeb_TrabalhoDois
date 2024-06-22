@@ -3,10 +3,31 @@ const bcrypt = require('bcryptjs');
 
 // User Model
 const userSchema = new mongoose.Schema({
-    firstname: String, // First name
-    secondName: String, // Second Name
-    email: { type: String, unique: true }, // Unique Email
-    password: String // Account Password
+    firstName: {
+        type: String,
+        required: true, // Alterado de allowNull para required
+        unique: false,
+    },
+    secondName: {
+        type: String,
+        required: true, // Alterado de allowNull para required
+        unique: false,
+    },
+    email: {
+        type: String,
+        required: true, // Alterado de allowNull para required
+        unique: true,
+        validate: {
+            validator: function (v) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+            },
+            message: props => `${props.value} is not a valid email!`
+        },
+    },
+    password: {
+        type: String,
+        required: true, // Alterado de allowNull para required
+    },
 });
 
 userSchema.pre('save', async function (next) {
