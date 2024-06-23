@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node index.js",
         "dev": "nodemon index.js",
-        "kill": "kill $(lsof -t -i:3000) && npm start"
+        "kill": "kill $(lsof -t -i:8080) && npm start"
     },
     "keywords": [],
     "author": "Seu Nome",
