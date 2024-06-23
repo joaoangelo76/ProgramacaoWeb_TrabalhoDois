@@ -1,39 +1,25 @@
-// index.js
-const dotenv = require('dotenv').config()
-const express = require('express'); // Express
-const mustacheExpress = require('mustache-express') // Mustache
-const session = require('express-session') // Express Session
-
-const mongoose = require('mongoose'); // Database
-
-const authRoutes = require('./src/routes/authRoutes'); // Authentication Routes
-const productRoutes = require('./src/routes/productRoutes'); // Product Routes
+const express = require('express');
+const mustacheExpress = require('mustache-express');
+const session = require('express-session');
+const path = require('path');
+const db = require('./src/db');
+const authRoutes = require('./src/routes/authRoutes');
+const homeRoutes = require('./src/routes/homeRoutes');
+const transactionRoutes = require('./src/routes/transactionRoutes');
+const userRoutes = require('./src/routes/userRoutes');
 
 const app = express();
-const PORT = 3000;
+const PORT = 8080;
 
-console.log('MONGO_URI:', process.env.MONGO_URI);
-
-// Conexão com MongoDB
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.log(err));
-
-// Definir view engine
 app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
 app.set('views', __dirname + '/src/views');
 
-app.use(express.urlencoded({ extended: true }));
-
-app.use('/', authRoutes);
-// app.use('/', productRoutes); // Certifique-se de usar a rota correta aqui
-
-app.get('/', (req, res) => {
-    res.redirect('/register');
+app.get('/modal.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'views', 'modal.html'));
 });
 
-app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
     secret: 'your-secret-key',
@@ -41,40 +27,29 @@ app.use(session({
     saveUninitialized: false,
 }));
 
+app.use('/', authRoutes);
+app.use('/', homeRoutes);
+app.use('/', transactionRoutes);
+app.use('/', userRoutes);
 
+db.authenticate()
+    .then(() => {
+        console.log('Conectado ao banco de dados');
+        return db.sync({ force: false });
+    })
+    .then(async () => {
+        console.log('Modelos sincronizados com sucesso');
 
-//const cookieParser = require('cookie-parser');
-//const path = require('path');
-//const methodOverride = require('method-override');
+        app.get('/', (req, res) => {
+            res.redirect('/login');
+        });
+        
+        app.use(express.static('public'));
 
-
-
-// // Middleware
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(cookieParser());
-// app.use(methodOverride('_method'));
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// Exemplo de variável de controle de autenticação
-// Suponha que você tenha uma lógica para verificar se o usuário está autenticado
-//const loggedIn = false; // Aqui você define se o usuário está autenticado ou não
-
-
-// // Rota para atualização de perfil
-// app.get('/profile', (req, res) => {
-//     if (!loggedIn) {
-//         // Se o usuário não estiver autenticado, redirecione para a página de login
-//         res.redirect('/auth/login');
-//     } else {
-//         // Aqui você pode renderizar o formulário de atualização de perfil
-//         res.render('update-profile');
-//     }
-// });
-
-// // Rotas de autenticação
-// app.use('/auth', authRoutes);
-
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+        app.listen(PORT, function() {
+            console.log('Hospedado na porta ' + PORT);
+        });
+    })
+    .catch(err => {
+        console.error('Erro ao conectar ao banco de dados ou sincronizar modelos:', err);
+    });

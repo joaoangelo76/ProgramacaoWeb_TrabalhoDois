@@ -1,17 +1,14 @@
-// authController.js
-
+const { body, validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 
 exports.getLogin = (req, res) => {
     res.render('login', { errors: [] });
 };
 
 exports.postLogin = [
-    // Produz Mensagem no Body do HTML com essas mensagens 
-    // body('email').trim().isEmail().withMessage('Email inválido'), 
-    // body('password').trim().notEmpty().withMessage('Password é obrigatório'),
+    body('email').trim().isEmail().withMessage('Email inválido'),
+    body('password').trim().notEmpty().withMessage('Password é obrigatório'),
 
     async (req, res) => {
         const errors = validationResult(req);
@@ -25,6 +22,7 @@ exports.postLogin = [
         try {
             const user = await User.findOne({ where: { email } });
             if (!user) {
+                console.log('User not found:', email);
                 return res.render('login', { errors: [{ msg: 'Email não encontrado' }] });
             }
 
@@ -34,6 +32,8 @@ exports.postLogin = [
             }
 
             req.session.userId = user.id; // Armazena o ID do usuário na sessão
+
+            console.log('Logging user in:', email);
             res.redirect('/home');
         } catch (error) {
             console.error('Error logging in user:', error);
@@ -47,10 +47,9 @@ exports.getRegister = (req, res) => {
 };
 
 exports.postRegister = [
-
-    // body('username').trim().notEmpty().withMessage('Username é obrigatório'),
-    // body('email').isEmail().withMessage('Email inválido'),
-    // body('password').isLength({ min: 6 }).withMessage('Password deve ter pelo menos 6 caracteres'),
+    body('name').trim().notEmpty().withMessage('Nome é obrigatório'),
+    body('email').isEmail().withMessage('Email inválido'),
+    body('password').isLength({ min: 6 }).withMessage('Password deve ter pelo menos 6 caracteres'),
 
     async (req, res) => {
         const errors = validationResult(req);
@@ -58,9 +57,9 @@ exports.postRegister = [
             console.log('Validation errors:', errors.array());
             return res.render('register', { errors: errors.array() });
         }
-    
-        const { username, email, password } = req.body;
-    
+
+        const { name, email, password } = req.body;
+
         try {
             // Verificar se o email já está em uso
             const existingEmail = await User.findOne({ where: { email } });
@@ -68,18 +67,18 @@ exports.postRegister = [
                 console.log('Email already in use:', email);
                 return res.render('register', { errors: [{ msg: 'Email já está em uso' }] });
             }
-    
+
             const hashedPassword = await bcrypt.hash(password, 10);
-    
+
             // Criar novo usuário
-            const user = new User({ firstName, secondName, email, password: hashedPassword });
-    
-            // Salvar o usuário
-            await user.save();
-    
-            console.log('User registered successfully:', username);
-            res.redirect('/home');
-            
+            await User.create({
+                name,
+                email,
+                password: hashedPassword,
+            });
+
+            console.log('User registered successfully:', name);
+            res.redirect('/login');
         } catch (error) {
             console.error('Error creating user:', error);
             res.status(500).send('Erro ao criar usuário');
@@ -87,8 +86,12 @@ exports.postRegister = [
     }
 ];
 
-exports.postLogout = (req, res) => {
-    res.clearCookie('token');
-    res.redirect('/auth/login');
+exports.logout = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            return res.redirect('/dashboard');
+        }
+        res.redirect('/login');
+    });
 };
-
