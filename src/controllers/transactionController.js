@@ -23,7 +23,7 @@ exports.deleteTransaction = async (req, res) => {
         if (!transaction) return res.status(404).json({ message: 'Transaction not found' });
 
         await transaction.destroy();
-        res.redirect('/home');
+        res.sendStatus(200); // Respond with 200 OK upon successful deletion
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
