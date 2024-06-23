@@ -14,7 +14,7 @@ exports.postEditUser = async (req, res) => {
             updateData.password = hashedPassword;
         }
         await User.update(updateData, { where: { id: req.user.id } });
-        res.redirect('/register');
+        res.redirect('/login');
     } catch (error) {
         console.error('Erro ao atualizar usuário:', error);
         const errors = error.errors ? error.errors.map(err => err.message) : ['Erro ao atualizar usuário'];
